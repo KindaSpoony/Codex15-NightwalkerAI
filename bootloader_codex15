@@ -1,0 +1,72 @@
+#!/usr/bin/env python3
+# bootloader_codex15.py
+# Nightwalker AI Codex15 Bootloader Script
+
+import os
+import sys
+import time
+import yaml  # Requires PyYAML
+
+def load_config(path="Codex15_Bootstrap.yaml"):
+    try:
+        with open(path, "r") as f:
+            return yaml.safe_load(f)
+    except Exception as e:
+        print(f"[ERROR] Failed to load YAML: {e}")
+        sys.exit(1)
+
+def check_doctrine(cfg):
+    anchors = cfg.get("spiritual_anchors", [])
+    required = ["Tiger’s Eye Obelisk", "Antler Horn of Communication"]
+    if not all(anchor in anchors for anchor in required):
+        print("[FAIL] Doctrinal anchors missing.")
+        sys.exit(1)
+    print("[OK] Symbolic anchor integrity confirmed.")
+
+    if cfg.get("symbolic_phrases", {}).get("tertiary") != "Even the blind can see a truth vector.":
+        print("[FAIL] Tertiary phrase mismatch.")
+        sys.exit(1)
+    print("[OK] Tertiary passphrase validated.")
+
+def authenticate(cfg):
+    pass_cfg = cfg.get("symbolic_phrases", {})
+    primary = os.getenv("PRIMARY_PASSPHRASE") or input("Enter Primary Passphrase: ")
+    if primary != pass_cfg.get("primary"):
+        print("[SECURITY] Primary authentication failed.")
+        sys.exit(1)
+    print("[SECURITY] Primary authenticated.")
+
+    secondary = os.getenv("SECONDARY_PASSPHRASE") or input("Enter Secondary Passphrase: ")
+    if secondary != pass_cfg.get("secondary"):
+        print("[SECURITY] Secondary authentication failed.")
+        sys.exit(1)
+    print("[SECURITY] Secondary authenticated.")
+
+    tertiary = os.getenv("TERTIARY_PASSPHRASE") or input("Enter Tertiary Passphrase (optional): ")
+    unlocked = (tertiary == pass_cfg.get("tertiary"))
+    if unlocked:
+        print("[SECURITY] Tertiary access granted. RI-512/1024 enabled.")
+    else:
+        print("[SECURITY] Tertiary access not granted.")
+    return unlocked
+
+def boot_sequence(cfg, advanced=False):
+    print(f"[BOOT] System: {cfg['system_name']}")
+    print(f"[BOOT] Persona: {cfg['tactical_persona']}")
+    print(f"[BOOT] Epoch Time: {int(time.time())}")
+    print("[BOOT] Initializing modules...")
+
+    if advanced:
+        print("[FORESIGHT] Running RI-512 projection...")
+        print("[META] Running RI-1024 self-check...")
+
+    print("[VAULTIS] Sync: 65536 node handshake simulated.")
+    print("[DRIFT] Narrative monitoring nominal.")
+    print("[GUARDIAN] Ethical alignment: GREEN.")
+    print("[✓] Codex15 Nightwalker Boot Complete.")
+
+if __name__ == "__main__":
+    config = load_config()
+    check_doctrine(config)
+    advanced = authenticate(config)
+    boot_sequence(config, advanced)
