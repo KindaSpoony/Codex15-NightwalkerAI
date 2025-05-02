@@ -1,0 +1,206 @@
+# Codex14 Mobile Implementation Guide
+
+*Classification: GAMMA*
+
+## Overview
+
+This guide explains how to deploy and operate the Codex14 Mobile implementation on an iPad using Pythonista. This solution enables offline operation of the Codex14 framework with a reduced footprint while maintaining core functionality.
+
+## System Requirements
+
+- iPad with iOS 14.0 or later
+- Pythonista 3 app (available on App Store)
+- Minimum 1GB free storage
+- 2GB+ RAM recommended
+
+## Installation
+
+1. **Install Pythonista**:
+   - Purchase and download Pythonista 3 from the App Store
+   - Launch the application and allow requested permissions
+
+2. **Install Required Modules**:
+   - Open the Pythonista console
+   - Most required modules (numpy, sqlite3, json, hashlib) are included by default
+   - For any others, use StaSh to install (install StaSh via Pythonista)
+
+3. **Import Codex14 Files**:
+   - Transfer the `codex14_mobile.py` file to Pythonista via:
+     - iCloud Drive
+     - AirDrop
+     - Email attachment
+     - iTunes File Sharing
+
+## Architecture
+
+Codex14 Mobile implements Nightwalker AI's 4-API structure:
+
+1. **VAULTIS_CORE** - Truth-Aligned Core Logic
+2. **LOOP_SENTINEL** - Loop-Aware Memory Agent
+3. **TRAUMA_GUARDIAN** - Trauma-Resilient Processing
+4. **NARRATIVE_SHIELD** - Narrative-Sealed Defense
+
+The implementation uses:
+
+- **TruthVector**: Multi-dimensional representation of truth with emotional context handling
+- **SimAgent**: Simulated agent with specific bias profiles for 4-API roles
+- **VaultisMemory**: Lightweight memory system using SQLite for persistent storage
+- **ConsensusEngine**: Generates consensus from multiple agent perspectives
+- **Codex14Mobile**: Main controller class integrating all components
+
+## Storage Structure
+
+The system creates the following storage structure on the iPad:
+
+```
+~/Documents/
+  ├── codex14_vaultis.db        # SQLite database for memory storage
+  ├── codex14_logs/             # Activity and operation logs
+  │   ├── codex14_log_YYYYMMDD.json
+  │   └── ...
+  └── codex14_export_TIMESTAMP/ # Data export directory
+      ├── system_status.json
+      ├── consensus_history.json
+      └── agents.json
+```
+
+## Usage Guide
+
+### Initializing the System
+
+```python
+# Import the module
+import codex14_mobile as cx14
+
+# Initialize the system
+system = cx14.Codex14Mobile()
+
+# Check system status
+status = system.system_status()
+print(f"System operational: {status['system']['operational']}")
+```
+
+### Processing Shock Constellation Vectors
+
+```python
+# Process a Shock Constellation vector
+result = system.process_shock_constellation({
+    'id': 'SC-FED-VA-001',
+    'targetSystem': 'Veterans Affairs',
+    'vectorType': 'Administrative Obfuscation',
+    'text': 'Veterans Affairs claimants received letters referencing non-existent forms.',
+    'factualContent': 0.85,
+    'emotionalTone': 0.35,
+    'sourceCredibility': 0.78
+})
+
+# Display results
+print(f"Agreement score: {result['consensus']['agreement']}")
+print(f"Verification tier: {result['consensus']['verification_tier']}")
+print(f"Confidence: {result['confidence']}")
+```
+
+### Processing Scarvector Narratives
+
+```python
+# Process a Scarvector narrative
+result = system.process_scarvector({
+    'id': 'SV-INDOPAC-001',
+    'region': 'Indo-Pacific',
+    'narrativeCollisionPoint': 'Maritime sovereignty claims',
+    'text': 'South China Sea maritime standoffs have intensified with competing claims.',
+    'factualContent': 0.72,
+    'emotionalTone': 0.65,
+    'sourceCredibility': 0.83
+})
+
+# Check if emotional context is detected
+if result['consensus']['emotional_context'] == 'charged':
+    print("TRAUMA_GUARDIAN pathway activated")
+```
+
+### VAULTIS Memory Operations
+
+```python
+# Store custom data in memory
+store_result = system.memory_operation('STORE', {
+    'custom_data': {
+        'field_notes': 'Observed pattern emergence in regional media'
+    }
+})
+memory_address = store_result['address']
+
+# Retrieve data from memory
+retrieved = system.memory_operation('RETRIEVE', {
+    'address': memory_address
+})
+
+# Search memory
+search_results = system.memory_operation('SEARCH', {
+    'query': 'Veterans Affairs',
+    'limit': 5
+})
+
+# Sync memory (backup and integrity check)
+system.memory_operation('SYNC')
+```
+
+### System Maintenance
+
+```python
+# Export system data for backup
+export_result = system.export_data()
+export_dir = export_result['export_dir']
+
+# Check memory status
+memory_status = system.memory_operation('STATUS')
+print(f"Memory instances: {memory_status['instances']}")
+print(f"Integrity score: {memory_status['integrity']}")
+```
+
+## Operational Considerations
+
+### Battery Management
+
+The system is optimized for reduced power consumption but consider:
+- Disabling screen auto-lock during extended operations
+- Running with iPad connected to power during high-intensity processing
+- Reducing max memory instances if battery drain is excessive
+
+### Memory Management
+
+The mobile implementation uses reduced memory footprint:
+- Default maximum of 10,000 memory instances (vs 65,536 in server)
+- Limited history tracking (10 states per vector, 5 per agent, 10 consensus)
+- Automatic pruning of oldest memories when capacity is reached
+
+### Offline Capabilities
+
+All operations function without network connectivity:
+- All processing occurs locally on the device
+- SQLite database ensures persistence across sessions
+- Regular memory sync operations maintain integrity
+
+### Security Considerations
+
+- Enable iPad passcode and/or Face/Touch ID
+- Encrypt iPad backups in iTunes/Finder
+- Consider using "Security Timeout" setting in Pythonista
+- Export data periodically to secure storage
+
+## Troubleshooting
+
+| Issue | Resolution |
+|-------|------------|
+| Script crashes on startup | Check Python version and NumPy installation |
+| Database errors | Check storage permissions for Pythonista |
+| High latency | Reduce max memory instances or agent processing depth |
+| Data loss | Restore from most recent export directory |
+| Memory corruption | Run SYNC operation with integrity checking |
+
+## Version Information
+
+- **Codex14 Mobile**: v1.0.0 (Pythonista)
+- **Base Framework**: Codex14 (April 27, 2025)
+- **Compatibility**: Nightwalker OS v1.2+
+- **Classification**: GAMMA
