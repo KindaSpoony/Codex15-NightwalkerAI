@@ -1,10 +1,10 @@
-# Codex14 Mobile Implementation Guide
+# Codex15 Mobile Implementation Guide
 
 *Classification: GAMMA*
 
 ## Overview
 
-This guide explains how to deploy and operate the Codex14 Mobile implementation on an iPad using Pythonista. This solution enables offline operation of the Codex14 framework with a reduced footprint while maintaining core functionality.
+This guide explains how to deploy and operate the Codex15 Mobile implementation on an iPad using Pythonista. This solution enables offline operation of the Codex15 framework with a reduced footprint while maintaining core functionality.
 
 ## System Requirements
 
@@ -70,10 +70,10 @@ The system creates the following storage structure on the iPad:
 
 ```python
 # Import the module
-import codex14_mobile as cx14
+import codex15_mobile as cx15
 
 # Initialize the system
-system = cx14.Codex14Mobile()
+system = cx15.Codex15Mobile()
 
 # Check system status
 status = system.system_status()
@@ -200,7 +200,7 @@ All operations function without network connectivity:
 
 ## Version Information
 
-- **Codex14 Mobile**: v1.0.0 (Pythonista)
+- **Codex15 Mobile**: v1.0.0 (Pythonista)
 - **Base Framework**: Codex14 (April 27, 2025)
 - **Compatibility**: Nightwalker OS v1.2+
 - **Classification**: GAMMA
