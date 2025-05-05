@@ -181,7 +181,7 @@ All operations function without network connectivity:
 - SQLite database ensures persistence across sessions
 - Regular memory sync operations maintain integrity
 
-### Security Considerations
+### Security Consideration
 
 - Enable iPad passcode and/or Face/Touch ID
 - Encrypt iPad backups in iTunes/Finder
